@@ -7,8 +7,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DomainModule {
-    @Singleton
+object DomainModule {
     @Provides
     fun provideInteractor(coinCapApi: CoinCapApi) = Interactor(remote = coinCapApi)
 }
