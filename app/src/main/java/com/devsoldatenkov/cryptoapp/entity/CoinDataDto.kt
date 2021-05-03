@@ -3,27 +3,27 @@ package com.devsoldatenkov.cryptoapp.entity
 
 import com.google.gson.annotations.SerializedName
 
-data class CoinData(
+data class CoinDataDto(
     @SerializedName("changePercent24Hr")
-    val changePercent24Hr: String,
+    val changePercent24Hr: String?,
     @SerializedName("id")
-    val id: String,
+    val id: String?,
     @SerializedName("marketCapUsd")
-    val marketCapUsd: String,
+    val marketCapUsd: String?,
     @SerializedName("maxSupply")
-    val maxSupply: String,
+    val maxSupply: String?,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("priceUsd")
-    val priceUsd: String,
+    val priceUsd: String?,
     @SerializedName("rank")
-    val rank: String,
+    val rank: String?,
     @SerializedName("supply")
-    val supply: String,
+    val supply: String?,
     @SerializedName("symbol")
-    val symbol: String,
+    val symbol: String?,
     @SerializedName("volumeUsd24Hr")
-    val volumeUsd24Hr: String,
+    val volumeUsd24Hr: String?,
     @SerializedName("vwap24Hr")
-    val vwap24Hr: String
+    val vwap24Hr: String?
 )

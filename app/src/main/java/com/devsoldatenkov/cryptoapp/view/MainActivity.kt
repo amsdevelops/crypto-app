@@ -28,13 +28,13 @@ class MainActivity : AppCompatActivity() {
 
         initRV()
 
-        viewModel.getAssets()
+        viewModel.getCoinsFromCache()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onError = { println(it.localizedMessage) },
                 onNext = {
-                    mainListAdapter.addItems(it.data)
+                    mainListAdapter.addItems(it)
                 }
             ).add()
     }

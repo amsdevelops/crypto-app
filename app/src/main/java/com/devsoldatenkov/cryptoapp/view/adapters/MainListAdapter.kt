@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.devsoldatenkov.cryptoapp.R
-import com.devsoldatenkov.cryptoapp.entity.CoinData
+import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
+import com.devsoldatenkov.cryptoapp.entity.CoinDataDto
 import com.devsoldatenkov.cryptoapp.view.viewholder.MainListItemViewHolder
 
 class MainListAdapter(private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

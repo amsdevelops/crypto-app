@@ -1,5 +1,12 @@
 ext {
+    //Dagger
     daggerVersion = '2.32'
     dagger = "com.google.dagger:dagger:$daggerVersion"
     daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    //Room
+    room_version = "2.3.0-beta02"
+    room = "androidx.room:room-runtime:$room_version"
+    roomRx = "androidx.room:room-rxjava3:2.3.0-beta02"
+    roomCompiler = "androidx.room:room-compiler:$room_version"
 }
