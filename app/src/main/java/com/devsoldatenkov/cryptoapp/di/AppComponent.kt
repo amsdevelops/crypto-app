@@ -1,13 +1,10 @@
 package com.devsoldatenkov.cryptoapp.di
 
-import android.app.Application
 import android.content.Context
 import com.devsoldatenkov.cryptoapp.di.modules.DatabaseModule
-import com.devsoldatenkov.cryptoapp.view.MainActivity
 import com.devsoldatenkov.cryptoapp.di.modules.DomainModule
 import com.devsoldatenkov.cryptoapp.di.modules.RemoteModule
-import com.devsoldatenkov.cryptoapp.view.viewmodels.MainActivityViewModel
-import dagger.Binds
+import com.devsoldatenkov.cryptoapp.view.viewmodels.HomeFragmentViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -21,7 +18,7 @@ import javax.inject.Singleton
     ]
 )
 interface AppComponent {
-    fun inject(mainActivityViewModel: MainActivityViewModel)
+    fun inject(homeFragmentViewModel: HomeFragmentViewModel)
 
     @Component.Builder
     interface Builder {

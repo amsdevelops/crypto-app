@@ -1,10 +1,14 @@
 package com.devsoldatenkov.cryptoapp.data.db.entity
 
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 @Entity(tableName = "coin_data")
 data class CoinData(
     @PrimaryKey(autoGenerate = true)
@@ -32,4 +36,4 @@ data class CoinData(
     val volumeUsd24Hr: String,
     @ColumnInfo(name = "vwap24Hr")
     val vwap24Hr: String
-)
+) : Parcelable

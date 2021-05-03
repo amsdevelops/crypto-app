@@ -7,7 +7,7 @@ import com.devsoldatenkov.cryptoapp.domain.Interactor
 import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
-class MainActivityViewModel : ViewModel() {
+class HomeFragmentViewModel : ViewModel() {
     @Inject
     lateinit var interactor: Interactor
 
