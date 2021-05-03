@@ -3,6 +3,7 @@ package com.devsoldatenkov.cryptoapp
 import android.app.Application
 import com.devsoldatenkov.cryptoapp.di.AppComponent
 import com.devsoldatenkov.cryptoapp.di.DaggerAppComponent
+import com.devsoldatenkov.remote.DaggerRemoteComponent
 import timber.log.Timber
 
 class App : Application() {
@@ -13,6 +14,7 @@ class App : Application() {
         daggerComponent = DaggerAppComponent
             .builder()
             .getContext(applicationContext)
+            .remoteProvider(DaggerRemoteComponent.create())
             .build()
 
         Timber.plant(Timber.DebugTree())

@@ -4,7 +4,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
 import com.devsoldatenkov.cryptoapp.databinding.MainListItemBinding
-import okhttp3.internal.trimSubstring
 
 class MainListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val binding = MainListItemBinding.bind(itemView)
@@ -16,11 +15,11 @@ class MainListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
             nameTv.text = item.name
 
             var dotIndex = item.priceUsd.indexOf(".")
-            val priceUSD = item.priceUsd.trimSubstring(0, dotIndex + 3)
+            val priceUSD = item.priceUsd.substring(0, dotIndex + 3)
             "price USD: $priceUSD$".also { priceUsdTv.text = it }
 
             dotIndex = item.changePercent24Hr.indexOf(".")
-            val changePercent = item.changePercent24Hr.subSequence(0, dotIndex + 3)
+            val changePercent = item.changePercent24Hr.substring(0, dotIndex + 3)
             "change: $changePercent%".also { changePercentTv.text = it }
         }
     }

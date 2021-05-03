@@ -2,7 +2,7 @@ package com.devsoldatenkov.cryptoapp.di.modules
 
 import com.devsoldatenkov.cryptoapp.data.CoinRepository
 import com.devsoldatenkov.cryptoapp.domain.Interactor
-import com.devsoldatenkov.cryptoapp.remote.CoinCapApi
+import com.devsoldatenkov.remote.CoinCapApi
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
