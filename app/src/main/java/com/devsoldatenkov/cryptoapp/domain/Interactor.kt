@@ -4,6 +4,7 @@ import com.devsoldatenkov.cryptoapp.data.CoinRepository
 import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
 import com.devsoldatenkov.cryptoapp.utils.Converters.toCoinData
 import com.devsoldatenkov.remote.CoinCapApi
+import com.devsoldatenkov.remote.entity.CoinHistoryResult
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -29,4 +30,9 @@ class Interactor(private val remote: CoinCapApi, private val repository: CoinRep
                 }
             )
     }
+
+    fun getCoinHistoryFromRemote(id: String, interval: String, start: Long, end: Long): Observable<CoinHistoryResult> =
+        remote.getCoinHistory(id, interval, start, end)
+            .subscribeOn(Schedulers.io())
+
 }
