@@ -1,9 +1,12 @@
 package com.devsoldatenkov.cryptoapp.view.customViews
 
+import android.animation.PropertyValuesHolder
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.devsoldatenkov.remote.entity.CoinHistoryDto
 
 class ChartView (context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
@@ -15,8 +18,13 @@ class ChartView (context: Context, attributeSet: AttributeSet) : View(context, a
     private var currentPrice = 0f
     private var priceInterval = 0f
     private var coinDataHistoryData = listOf<CoinHistoryDto>()
+    private var lineWidth = 0f
+    private var paintAlpha = 0
     private val scale = 0.8f
     private val _matrix = Matrix()
+    private val lineWidthPVH = PropertyValuesHolder.ofFloat(ANIM_PROP_LINE_WIDTH,0f, 0f)
+    private val alphaPVH = PropertyValuesHolder.ofInt(ANIM_PROP_PAINT_ALPHA, 0, 255)
+    private val lineAnimator = ValueAnimator.ofPropertyValuesHolder()
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = 5f
@@ -30,7 +38,7 @@ class ChartView (context: Context, attributeSet: AttributeSet) : View(context, a
     }
     private val maxPriceTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL_AND_STROKE
-        strokeWidth = 2f
+        strokeWidth = 1f
         textSize = 50f
         typeface = Typeface.SANS_SERIF
         color = Color.GREEN
@@ -41,7 +49,14 @@ class ChartView (context: Context, attributeSet: AttributeSet) : View(context, a
     }
     private val currentPriceTextPaint = Paint(maxPriceTextPaint).apply {
         color = Color.WHITE
-        textAlign = Paint.Align.LEFT
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val width = MeasureSpec.getSize(widthMeasureSpec)
+        val height = MeasureSpec.getSize(heightMeasureSpec)
+        lineWidthPVH.setFloatValues(0f, width.toFloat())
+        lineAnimator.setValues(lineWidthPVH, alphaPVH)
+        setMeasuredDimension(width, height)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -70,15 +85,27 @@ class ChartView (context: Context, attributeSet: AttributeSet) : View(context, a
             }
             else -> {}
         }
-
+        paint.alpha = paintAlpha
         path.reset()
         path.moveTo(0f, y)
-        path.lineTo(width.toFloat(), y)
+        path.lineTo(lineWidth, y)
         _matrix.setScale(scale, scale, width / 2f, height / 2f)
         path.transform(_matrix)
         canvas.drawPath(path, dashedPaint)
         val maxPriceText = String.format("%.2f", text) + "$"
         canvas.drawTextOnPath(maxPriceText, path, 5f, 0f, paint)
+    }
+
+    private fun drawAnimated() {
+        lineAnimator.apply {
+            duration = 1000
+            interpolator = AccelerateDecelerateInterpolator()
+            addUpdateListener {
+                lineWidth = it.getAnimatedValue(ANIM_PROP_LINE_WIDTH) as Float
+                paintAlpha = it.getAnimatedValue(ANIM_PROP_PAINT_ALPHA) as Int
+                invalidate()
+            }
+        }.start()
     }
 
     private fun drawChart(canvas: Canvas) {
@@ -108,7 +135,7 @@ class ChartView (context: Context, attributeSet: AttributeSet) : View(context, a
 
     fun setCoinHistoryData(list: List<CoinHistoryDto>) {
         coinDataHistoryData = list
-        invalidate()
+        drawAnimated()
     }
 
     private fun calculateHeight() {
@@ -116,10 +143,14 @@ class ChartView (context: Context, attributeSet: AttributeSet) : View(context, a
         priceStep = height / priceInterval
     }
 
-
     enum class LineType {
         MAX,
         MIN,
         CURRENT
+    }
+
+    companion object {
+        const val ANIM_PROP_LINE_WIDTH = "width"
+        const val ANIM_PROP_PAINT_ALPHA = "alpha"
     }
 }

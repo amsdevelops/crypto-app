@@ -34,5 +34,4 @@ class Interactor(private val remote: CoinCapApi, private val repository: CoinRep
     fun getCoinHistoryFromRemote(id: String, interval: String, start: Long, end: Long): Observable<CoinHistoryResult> =
         remote.getCoinHistory(id, interval, start, end)
             .subscribeOn(Schedulers.io())
-
 }
