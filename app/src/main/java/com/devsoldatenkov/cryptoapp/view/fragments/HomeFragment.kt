@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devsoldatenkov.cryptoapp.databinding.FragmentHomeBinding
-import com.devsoldatenkov.cryptoapp.view.adapters.MainListAdapter
+import com.devsoldatenkov.cryptoapp.view.adapters.BasicListAdapter
 import com.devsoldatenkov.cryptoapp.view.viewmodels.HomeFragmentViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -20,7 +20,7 @@ import timber.log.Timber
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var mainListAdapter: MainListAdapter
+    private lateinit var BasicListAdapter: BasicListAdapter
     private val compositeDisposable = CompositeDisposable()
     private val viewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(HomeFragmentViewModel::class.java)
@@ -38,8 +38,6 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,20 +50,18 @@ class HomeFragment : Fragment() {
             .subscribeBy(
                 onError = { Timber.e(it.localizedMessage) },
                 onNext = {
-                    mainListAdapter.addItems(it)
+                    BasicListAdapter.addItems(it)
                 }
             ).add()
     }
 
-
-
     private fun initRV() {
         binding.mainRecycler.apply {
-            mainListAdapter = MainListAdapter {
+            BasicListAdapter = BasicListAdapter {
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it)
                 findNavController().navigate(action)
             }
-            adapter = mainListAdapter
+            adapter = BasicListAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }

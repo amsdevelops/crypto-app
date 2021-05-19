@@ -3,11 +3,12 @@ package com.devsoldatenkov.cryptoapp.view.viewholder
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
+import com.devsoldatenkov.cryptoapp.data.db.entity.CoinDataBasic
 import com.devsoldatenkov.cryptoapp.databinding.MainListItemBinding
 
 class MainListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val binding = MainListItemBinding.bind(itemView)
-    fun bind(item: CoinData) {
+    fun bind(item: CoinDataBasic) {
         binding.apply {
             val rankText = "#${item.rank}"
             rankTv.text = rankText

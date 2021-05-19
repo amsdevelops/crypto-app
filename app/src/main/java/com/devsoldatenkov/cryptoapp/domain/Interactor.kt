@@ -2,6 +2,8 @@ package com.devsoldatenkov.cryptoapp.domain
 
 import com.devsoldatenkov.cryptoapp.data.CoinRepository
 import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
+import com.devsoldatenkov.cryptoapp.data.db.entity.CoinDataBasic
+import com.devsoldatenkov.cryptoapp.data.db.entity.FavoritesCoinData
 import com.devsoldatenkov.cryptoapp.utils.Converters.toCoinData
 import com.devsoldatenkov.remote.CoinCapApi
 import com.devsoldatenkov.remote.entity.CoinHistoryResult
@@ -12,6 +14,8 @@ import timber.log.Timber
 
 class Interactor(private val remote: CoinCapApi, private val repository: CoinRepository) {
     fun getCoinsFromCache(): Observable<List<CoinData>> = repository.getCoinsFromCache()
+
+    fun getFavoritesCoin(): Observable<List<FavoritesCoinData>> = repository.getFavoritesCoins()
 
     fun getAssetsFromRemote() {
         remote.getAssets()
@@ -34,4 +38,8 @@ class Interactor(private val remote: CoinCapApi, private val repository: CoinRep
     fun getCoinHistoryFromRemote(id: String, interval: String, start: Long, end: Long): Observable<CoinHistoryResult> =
         remote.getCoinHistory(id, interval, start, end)
             .subscribeOn(Schedulers.io())
+
+    fun insertCoinToFavorites(coin: CoinDataBasic) {
+        repository.insertCoinToFavorites(coin)
+    }
 }
