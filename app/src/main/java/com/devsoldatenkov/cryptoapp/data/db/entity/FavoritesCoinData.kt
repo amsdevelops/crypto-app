@@ -1,6 +1,5 @@
 package com.devsoldatenkov.cryptoapp.data.db.entity
 
-
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,8 +7,8 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "coin_data")
-data class CoinData(
+@Entity(tableName = "favorites_coin_data")
+data class FavoritesCoinData(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cache_id")
     override val cache_id: Int = 0,

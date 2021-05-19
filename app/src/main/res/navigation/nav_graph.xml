@@ -14,7 +14,7 @@
             app:destination="@id/detailsFragment">
             <argument
                 android:name="coin_data"
-                app:argType="com.devsoldatenkov.cryptoapp.data.db.entity.CoinData" />
+                app:argType="com.devsoldatenkov.cryptoapp.data.db.entity.CoinDataBasic" />
         </action>
     </fragment>
     <fragment
@@ -24,7 +24,11 @@
         tools:layout="@layout/fragment_favorites" >
         <action
             android:id="@+id/action_favoritesFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment">
+            <argument
+                android:name="coin_data"
+                app:argType="com.devsoldatenkov.cryptoapp.data.db.entity.CoinDataBasic" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"

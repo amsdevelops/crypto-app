@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
+import com.devsoldatenkov.cryptoapp.data.db.entity.CoinDataBasic
+import com.devsoldatenkov.cryptoapp.data.db.entity.FavoritesCoinData
 import com.devsoldatenkov.cryptoapp.databinding.FragmentDetailsBinding
 import com.devsoldatenkov.cryptoapp.view.viewmodels.DetailsFragmentViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -28,7 +29,7 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val coinData: CoinData = arguments?.get(COIN_DATA_KEY) as CoinData
+        val coinData: CoinDataBasic = arguments?.get(COIN_DATA_KEY) as CoinDataBasic
         binding.textView.text = coinData.toString()
 
         val endTime = System.currentTimeMillis()
@@ -44,6 +45,23 @@ class DetailsFragment : Fragment() {
                     println(it.data)
                 }
             )
+
+        binding.fabFavorites.setOnClickListener {
+            viewModel.insertCoinToFavorites(FavoritesCoinData(
+                cache_id = coinData.cache_id,
+                id = coinData.id,
+                changePercent24Hr = coinData.changePercent24Hr,
+                marketCapUsd = coinData.marketCapUsd,
+                maxSupply = coinData.maxSupply,
+                name = coinData.name,
+                priceUsd = coinData.priceUsd,
+                rank = coinData.rank,
+                supply = coinData.supply,
+                symbol = coinData.symbol,
+                volumeUsd24Hr = coinData.volumeUsd24Hr,
+                vwap24Hr = coinData.vwap24Hr
+            ))
+        }
     }
 
     companion object {
