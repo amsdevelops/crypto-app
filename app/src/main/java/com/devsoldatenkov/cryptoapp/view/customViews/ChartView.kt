@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.devsoldatenkov.remote.entity.CoinHistoryDto
 
-class ChartView (context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
+class ChartView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {
     private val path = Path()
     private var priceStep = 0f
     private var stepX = 0f
