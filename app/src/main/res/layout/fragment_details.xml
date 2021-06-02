@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".view.fragments.DetailsFragment">
 
+    <com.devsoldatenkov.cryptoapp.view.customViews.ChartView
+        android:id="@+id/chart_view"
+        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray"
+        android:layout_height="200dp"/>
+
     <TextView
         android:gravity="center"
         android:id="@+id/text_view"
