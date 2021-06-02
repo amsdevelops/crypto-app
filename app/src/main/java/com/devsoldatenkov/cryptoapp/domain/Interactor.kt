@@ -1,10 +1,32 @@
 package com.devsoldatenkov.cryptoapp.domain
 
-import com.devsoldatenkov.cryptoapp.entity.AssetsResult
+import com.devsoldatenkov.cryptoapp.data.CoinRepository
+import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
 import com.devsoldatenkov.cryptoapp.remote.CoinCapApi
+import com.devsoldatenkov.cryptoapp.utils.Converters.toCoinData
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.schedulers.Schedulers
+import timber.log.Timber
 
-class Interactor(val remote: CoinCapApi) {
+class Interactor(private val remote: CoinCapApi, private val repository: CoinRepository) {
+    fun getCoinsFromCache(): Observable<List<CoinData>> = repository.getCoinsFromCache()
 
-    fun getAssets(): Observable<AssetsResult> = remote.getAssets()
+    fun getAssetsFromRemote() {
+        remote.getAssets()
+            .subscribeOn(Schedulers.io())
+            .map {
+                it.data.map { coinDataDto ->
+                    coinDataDto.toCoinData()
+                }
+            }
+            .subscribeBy(
+                onError = {
+                    Timber.e(it.localizedMessage)
+                },
+                onNext = {
+                    repository.putCoinsToCache(it)
+                }
+            )
+    }
 }

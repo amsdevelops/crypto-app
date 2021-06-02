@@ -2,8 +2,8 @@ package com.devsoldatenkov.cryptoapp.view.viewholder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
 import com.devsoldatenkov.cryptoapp.databinding.MainListItemBinding
-import com.devsoldatenkov.cryptoapp.entity.CoinData
 import okhttp3.internal.trimSubstring
 
 class MainListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
