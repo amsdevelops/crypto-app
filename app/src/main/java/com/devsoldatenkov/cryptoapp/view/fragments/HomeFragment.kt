@@ -26,11 +26,6 @@ class HomeFragment : Fragment() {
         ViewModelProvider.NewInstanceFactory().create(HomeFragmentViewModel::class.java)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,23 +33,15 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initRV()
-        viewModel.getCoinsFromCache()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onError = { Timber.e(it.localizedMessage) },
-                onNext = {
-                    mainListAdapter.addItems(it)
-                }
-            ).add()
+        viewModel.coinDataList.observe(viewLifecycleOwner) {
+            mainListAdapter.addItems(it)
+        }
     }
 
 
@@ -70,9 +57,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
         compositeDisposable.clear()
+        super.onDestroyView()
     }
 
     private fun Disposable.add() {
