@@ -12,7 +12,7 @@ class FavoritesFragmentViewModel : ViewModel() {
     lateinit var interactor: Interactor
 
     init {
-        App.instance.daggerComponent.inject(this)
+        App.instance.getAppComponent().inject(this)
     }
 
     fun getFavoritesCoins(): Observable<List<FavoritesCoinData>> = interactor.getFavoritesCoin()

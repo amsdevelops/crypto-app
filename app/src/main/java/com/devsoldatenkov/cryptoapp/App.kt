@@ -6,19 +6,19 @@ import com.devsoldatenkov.cryptoapp.di.DaggerAppComponent
 import com.devsoldatenkov.remote.DaggerRemoteComponent
 import timber.log.Timber
 
-class App : Application() {
-    lateinit var daggerComponent: AppComponent
+open class App : Application() {
+    protected var daggerComponent: AppComponent? = null
     override fun onCreate() {
         super.onCreate()
         instance = this
-        daggerComponent = DaggerAppComponent
-            .builder()
-            .getContext(applicationContext)
-            .remoteProvider(DaggerRemoteComponent.create())
-            .build()
-
         Timber.plant(Timber.DebugTree())
     }
+
+    open fun getAppComponent() = daggerComponent ?: DaggerAppComponent
+        .builder()
+        .getContext(applicationContext)
+        .remoteProvider(DaggerRemoteComponent.create())
+        .build()
 
     companion object {
         lateinit var instance: App

@@ -12,7 +12,7 @@ class HomeFragmentViewModel : ViewModel() {
     lateinit var interactor: Interactor
 
     init {
-        App.instance.daggerComponent.inject(this)
+        App.instance.getAppComponent().inject(this)
         getAssetsFromRemote()
     }
 
