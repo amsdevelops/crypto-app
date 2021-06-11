@@ -9,4 +9,8 @@ ext {
     room = "androidx.room:room-runtime:$room_version"
     roomRx = "androidx.room:room-rxjava3:2.3.0-beta02"
     roomCompiler = "androidx.room:room-compiler:$room_version"
+
+    //Test
+    okhttpVersion = '4.2.1'
+    okHttpMockServer = "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
 }
