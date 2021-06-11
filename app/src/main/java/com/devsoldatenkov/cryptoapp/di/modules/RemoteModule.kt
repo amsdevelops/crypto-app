@@ -39,6 +39,5 @@ object RemoteModule {
         .build()
 
     @Provides
-    @Singleton
     fun provideTmdbApi(retrofit: Retrofit): CoinCapApi = retrofit.create(CoinCapApi::class.java)
 }
