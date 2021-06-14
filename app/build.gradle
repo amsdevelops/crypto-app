@@ -37,6 +37,11 @@ android {
     buildFeatures {
         viewBinding true
     }
+    lintOptions {
+        ignoreTestSources true
+        abortOnError true
+        checkDependencies true
+    }
 }
 
 dependencies {
@@ -52,7 +57,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
-
+    lintChecks project(':lint')
     //Modules
     implementation project(":remote")
 
