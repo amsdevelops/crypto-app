@@ -11,9 +11,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.devsoldatenkov.cryptoapp.R
+import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
 import com.devsoldatenkov.cryptoapp.view.MainActivity
+import com.devsoldatenkov.cryptoapp.view.adapters.BasicListAdapter
 import com.devsoldatenkov.cryptoapp.view.viewholder.MainListItemViewHolder
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,6 +25,14 @@ import org.junit.runner.RunWith
 class HomeFragmentTest {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Before
+    fun setUp() {
+        activityScenarioRule.scenario.onActivity {
+            val rv = it.findViewById<RecyclerView>(R.id.main_recycler)
+            (rv.adapter as BasicListAdapter).addItems(mockList)
+        }
+    }
 
     @Test
     fun recyclerViewShouldBeAttached() {
@@ -65,5 +76,39 @@ class HomeFragmentTest {
             val rv = it.findViewById<RecyclerView>(R.id.favorites_recycler)
             Assert.assertTrue(rv.size != 0)
         }
+    }
+
+    companion object {
+        val mockList = listOf(
+            CoinData(
+                cache_id = 0,
+                id = "",
+                changePercent24Hr = "1111",
+                marketCapUsd = "",
+                maxSupply = "",
+                name = "",
+                priceUsd = "1111",
+                rank = "",
+                supply = "",
+                symbol = "",
+                volumeUsd24Hr = "",
+                vwap24Hr = ""
+            ),
+            CoinData(
+                cache_id = 1,
+                id = "",
+                changePercent24Hr = "1111",
+                marketCapUsd = "",
+                maxSupply = "",
+                name = "",
+                priceUsd = "1111",
+                rank = "",
+                supply = "",
+                symbol = "",
+                volumeUsd24Hr = "",
+                vwap24Hr = ""
+            )
+
+        )
     }
 }
