@@ -1,8 +1,5 @@
-package com.devsoldatenkov.cryptoapp.di.modules
+package com.devsoldatenkov.remote
 
-import com.devsoldatenkov.cryptoapp.BuildConfig
-import com.devsoldatenkov.cryptoapp.constants.ApiConstants
-import com.devsoldatenkov.cryptoapp.remote.CoinCapApi
 import dagger.Module
 import dagger.Provides
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
@@ -15,6 +12,8 @@ import javax.inject.Singleton
 
 @Module
 object RemoteModule {
+    private const val BASE_URL = "https://api.coincap.io/v2/"
+
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
@@ -32,7 +31,7 @@ object RemoteModule {
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(ApiConstants.BASE_URL)
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .client(okHttpClient)
@@ -40,5 +39,5 @@ object RemoteModule {
 
     @Provides
     @Singleton
-    fun provideTmdbApi(retrofit: Retrofit): CoinCapApi = retrofit.create(CoinCapApi::class.java)
+    fun provideCoinCapApi(retrofit: Retrofit): CoinCapApi = retrofit.create(CoinCapApi::class.java)
 }

@@ -1,7 +1,7 @@
 package com.devsoldatenkov.cryptoapp.utils
 
 import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
-import com.devsoldatenkov.cryptoapp.entity.CoinDataDto
+import com.devsoldatenkov.remote.entity.CoinDataDto
 
 object Converters {
     fun CoinDataDto.toCoinData() = CoinData(

@@ -2,8 +2,8 @@ package com.devsoldatenkov.cryptoapp.domain
 
 import com.devsoldatenkov.cryptoapp.data.CoinRepository
 import com.devsoldatenkov.cryptoapp.data.db.entity.CoinData
-import com.devsoldatenkov.cryptoapp.remote.CoinCapApi
 import com.devsoldatenkov.cryptoapp.utils.Converters.toCoinData
+import com.devsoldatenkov.remote.CoinCapApi
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers

@@ -1,4 +1,4 @@
-package com.devsoldatenkov.cryptoapp.entity
+package com.devsoldatenkov.remote.entity
 
 
 import com.google.gson.annotations.SerializedName

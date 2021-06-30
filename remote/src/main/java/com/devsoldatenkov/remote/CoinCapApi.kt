@@ -1,6 +1,6 @@
-package com.devsoldatenkov.cryptoapp.remote
+package com.devsoldatenkov.remote
 
-import com.devsoldatenkov.cryptoapp.entity.AssetsResult
+import com.devsoldatenkov.remote.entity.AssetsResult
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 
